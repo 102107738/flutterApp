@@ -16,6 +16,8 @@ void main() {
 
 //The bottomNavigationBar property in Flutter is used to define a navigation bar at the bottom of the screen, typically containing multiple items for easy navigation between different sections or pages of an app.
 //Each item is represented by a BottomNavigationBarItem containing a label and an icon, in this case, both using the Icons.home icon.
+
+//Use const before widgets to remove errors
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -26,11 +28,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Basic App")
+          title: const Text("Basic App")
         ),
-        body: Text("Body"),
+        body: const Text("Body"),
         bottomNavigationBar: BottomNavigationBar(
-          items: [
+          items: const[
             BottomNavigationBarItem(
               label: "Home",
             icon: Icon(Icons.home)
