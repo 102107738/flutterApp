@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 //The play button runs the main method
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 //home is an argument, Scaffold is a widget.
 //Widget start with uppercase and argument start with lowercase
@@ -43,8 +43,8 @@ void main() {
 //FloatingActionButton: It is a circular button that floats above the content and triggers the primary action in the app. It is typically used for important or high-level actions.
 //DropdownButton: It is a button that shows a dropdown menu when pressed, allowing the user to select an item from the menu options.
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
+  MyApp({Key? key}) : super(key: key);
+  String buttonName = "Click";
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -55,7 +55,13 @@ class MyApp extends StatelessWidget {
           title: const Text("Basic App")
         ),
         body: Center(
-            child: ElevatedButton(onPressed: (){}, child: Text("Press"))
+            child: ElevatedButton(
+                onPressed: (){
+                  print("Hello");
+                },
+                child: Text(buttonName)
+
+            )
         ),
         bottomNavigationBar: BottomNavigationBar(
           items: const[
