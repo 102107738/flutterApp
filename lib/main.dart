@@ -42,50 +42,78 @@ void main() {
 //IconButton: It is a button that displays an icon and responds to touches. It is commonly used for actions that are represented by icons only.
 //FloatingActionButton: It is a circular button that floats above the content and triggers the primary action in the app. It is typically used for important or high-level actions.
 //DropdownButton: It is a button that shows a dropdown menu when pressed, allowing the user to select an item from the menu options.
-class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+
+/*StatelessWidget*/
+//StatelessWidget: A StatelessWidget is a widget that doesn't have
+// any mutable state. It means that once created, its properties and content cannot be changed.
+// A StatelessWidget is typically used to represent static or unchanging parts of the user interface.
+// It defines its UI based on the input received via its constructor and does not have any internal state variables.
+// The build method of a StatelessWidget is called whenever the widget needs to be rendered.
+
+/*StatefulWidget*/
+// A StatefulWidget is a widget that can have mutable state.
+// It means that it can maintain and update internal state variables.
+// A StatefulWidget is used when you need to manage and update data dynamically, such as handling user input, managing animations, or responding to changes in external data sources.
+// The StatefulWidget class is accompanied by a separate State class, which is responsible for maintaining the state of the widget.
+// The build method of the associated State class is called whenever the widget needs to be rendered.
+
+
+
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   String buttonName = "Click";
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Basic App")
+          title: const Text("Basic App"),
         ),
         body: Center(
-            child: ElevatedButton(
-                onPressed: (){
-                  print("Hello");
-                },
-                child: Text(buttonName)
+          child: ElevatedButton(
+            onPressed: () {
+              setState(() {
+                switch(buttonName){
+                  case "Click":
+                    buttonName = "Press";
+                    break;
+                  case "Press":
+                    buttonName = "Click";
+                    break;
+                }
 
-            )
+              });
+            },
+            child: Text(buttonName),
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
-          items: const[
+          items: const [
             BottomNavigationBarItem(
               label: "Home",
-            icon: Icon(
-              Icons.favorite,
-              color: Colors.pink,
-              size: 24.0,
-              semanticLabel: 'Text to announce in accessibility modes',
-            )
-
-          ),
+              icon: Icon(
+                Icons.favorite,
+                color: Colors.pink,
+                size: 24.0,
+                semanticLabel: 'Text to announce in accessibility modes',
+              ),
+            ),
             BottomNavigationBarItem(
               label: "Settings",
-                icon: Icon(
-                  Icons.settings
-                )
-
-            )
-
+              icon: Icon(
+                Icons.settings,
+              ),
+            ),
           ],
         ),
-
       ),
     );
   }
