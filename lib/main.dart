@@ -18,6 +18,7 @@ void main() {
 //Each item is represented by a BottomNavigationBarItem containing a label and an icon, in this case, both using the Icons.home icon.
 
 //Use const before widgets to remove errors
+// semanticLabel property is used to provide a description or label for a widget that can be read by accessibility services and assistive technologies. It helps make the user interface more accessible to users with visual impairments or other disabilities.
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -35,12 +36,22 @@ class MyApp extends StatelessWidget {
           items: const[
             BottomNavigationBarItem(
               label: "Home",
-            icon: Icon(Icons.home)
+            icon: Icon(
+              Icons.favorite,
+              color: Colors.pink,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
+            )
 
           ),
             BottomNavigationBarItem(
               label: "Home",
-                icon: Icon(Icons.home)
+                icon: Icon(
+                    Icons.umbrella,
+                  color: Colors.blue,
+                  size: 24.0,
+                  semanticLabel: "Not Yet",
+                )
 
             )
 
