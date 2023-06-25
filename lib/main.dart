@@ -59,6 +59,13 @@ void main() {
 
 
 
+
+/*BottomNavigationBar onTap and currentIndex*/
+//currentIndex is a property in BottomNavigationBar that represents the currently selected index or item in the navigation bar.
+// onTap is a callback function in BottomNavigationBar that gets triggered when the user taps on an item in the navigation bar, allowing you to respond to the tap event.
+// By updating the currentIndex in the onTap callback, you can control the selected item's appearance and behavior and manage the corresponding UI changes in your Flutter app.
+
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -68,7 +75,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String buttonName = "Click";
-
+  int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -113,6 +120,12 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
           ],
+          currentIndex: currentIndex,
+          onTap: (int index){
+            setState(() {
+              currentIndex = index;
+            });
+          },
         ),
       ),
     );
