@@ -184,109 +184,30 @@ void main() {
 //Image.memory with base64 encoding: Loads an image from base64 encoded data.
 // It requires providing the base64 encoded string.
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  String buttonName = "Click";
-  int currentIndex = 0;
-  var backGround = Colors.orange;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text("Basic App"),
+          title: const Text("Navigation App"),
         ),
         body: Center(
-          child: currentIndex == 0 ? Container(
-            height: double.infinity,
-          width: double.infinity,
-          color: backGround,
-
-
-
-          child:
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-            ElevatedButton(
-
-              style: ElevatedButton.styleFrom(
-                onPrimary: Colors.black,
-                primary: Colors.yellow
-              ),
-              onPressed: () {
-                setState(() {
-                  switch(buttonName){
-                    case "Click":
-                      buttonName = "Press";
-                      break;
-                    case "Press":
-                      buttonName = "Click";
-                      break;
-                  }
-
-                });
-              },
-              child: Text(buttonName),
-
-            ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  switch(buttonName){
-                    case "Click":
-                      buttonName = "Press";
-                      break;
-                    case "Press":
-                      buttonName = "Click";
-                      break;
-                  }
-
-                });
-              },
-              child: Text(buttonName),
-            )
-          ],)
-        ) : Image.asset("images/Capture.JPG"),
-    ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(
-              label: "Home",
-              icon: Icon(
-                Icons.favorite,
-                color: Colors.pink,
-                size: 24.0,
-                semanticLabel: 'Text to announce in accessibility modes',
-              ),
-            ),
-            BottomNavigationBarItem(
-              label: "Settings",
-              icon: Icon(
-                Icons.settings,
-              ),
-            ),
-          ],
-          currentIndex: currentIndex,
-          onTap: (int index){
-            setState(() {
-              currentIndex = index;
-
-            });
-          },
+          child: ElevatedButton(
+            onPressed: () {},
+            child: const Text("Press"),
+          ),
         ),
       ),
     );
   }
 }
+
+
+
 
 
 
