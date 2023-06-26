@@ -184,6 +184,12 @@ void main() {
 //Image.memory with base64 encoding: Loads an image from base64 encoded data.
 // It requires providing the base64 encoded string.
 
+
+/*MaterialPageRoute*/
+//The MaterialPageRoute class in Flutter is used to define a route that transitions
+// to a new page following the Material Design guidelines.
+// It provides a way to navigate between different screens or pages in a Flutter app.
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -192,101 +198,138 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String buttonName = "Click";
-  int currentIndex = 0;
-  var backGround = Colors.orange;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Basic App"),
-        ),
-        body: Center(
-          child: currentIndex == 0 ? Container(
-            height: double.infinity,
+      home: MyAppExt(),
+    );
+  }
+}
+
+class MyAppExt extends StatefulWidget {
+  const MyAppExt({Key? key}) : super(key: key);
+
+  @override
+  State<MyAppExt> createState() => _MyAppExtState();
+}
+
+class _MyAppExtState extends State<MyAppExt> {
+  String buttonName = "Click";
+  int currentIndex = 0;
+  var backGround = Colors.orange;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Basic App"),
+      ),
+      body: Center(
+        child: currentIndex == 0
+            ? Container(
+          height: double.infinity,
           width: double.infinity,
           color: backGround,
-
-
-
-          child:
-          Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-            ElevatedButton(
-
-              style: ElevatedButton.styleFrom(
-                onPrimary: Colors.black,
-                primary: Colors.yellow
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  onPrimary: Colors.black,
+                  primary: Colors.yellow,
+                ),
+                onPressed: () {
+                  setState(() {
+                    switch (buttonName) {
+                      case "Click":
+                        buttonName = "Press";
+                        break;
+                      case "Press":
+                        buttonName = "Click";
+                        break;
+                    }
+                  });
+                },
+                child: Text(buttonName),
               ),
-              onPressed: () {
-                setState(() {
-                  switch(buttonName){
-                    case "Click":
-                      buttonName = "Press";
-                      break;
-                    case "Press":
-                      buttonName = "Click";
-                      break;
-                  }
-
-                });
-              },
-              child: Text(buttonName),
-
-            ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  switch(buttonName){
-                    case "Click":
-                      buttonName = "Press";
-                      break;
-                    case "Press":
-                      buttonName = "Click";
-                      break;
-                  }
-
-                });
-              },
-              child: Text(buttonName),
-            )
-          ],)
-        ) : Image.asset("images/Capture.JPG"),
-    ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(
-              label: "Home",
-              icon: Icon(
-                Icons.favorite,
-                color: Colors.pink,
-                size: 24.0,
-                semanticLabel: 'Text to announce in accessibility modes',
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) =>
+                      const NextPage(),
+                    ),
+                  );
+                },
+                child: const Text('Next Page'),
               ),
+            ],
+          ),
+        )
+            : Image.asset("images/Capture.JPG"),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            label: "Home",
+            icon: Icon(
+              Icons.favorite,
+              color: Colors.pink,
+              size: 24.0,
+              semanticLabel: 'Text to announce in accessibility modes',
             ),
-            BottomNavigationBarItem(
-              label: "Settings",
-              icon: Icon(
-                Icons.settings,
-              ),
+          ),
+          BottomNavigationBarItem(
+            label: "Settings",
+            icon: Icon(
+              Icons.settings,
             ),
-          ],
-          currentIndex: currentIndex,
-          onTap: (int index){
-            setState(() {
-              currentIndex = index;
-
-            });
-          },
-        ),
+          ),
+        ],
+        currentIndex: currentIndex,
+        onTap: (int index) {
+          setState(() {
+            currentIndex = index;
+          });
+        },
       ),
     );
   }
 }
+
+
+
+
+class NextPage extends StatelessWidget {
+  const NextPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Next Page"),
+      )
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+/*Context*/
+//The BuildContext provides access to the widget tree hierarchy and allows the Navigator to
+// locate the nearest navigator ancestor. This enables the Navigator to access information
+// such as the current navigation stack, route history,
+// and navigation options defined by the MaterialApp or CupertinoApp
 
 
 
