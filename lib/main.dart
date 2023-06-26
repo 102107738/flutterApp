@@ -157,6 +157,10 @@ void main() {
 // It is particularly useful for adding padding, creating spacing between widgets,
 // or enforcing a specific size constraint.
 
+/*double.infinity*/
+//double.infinity set as its width or height within the body attribute of a Scaffold,
+// it will expand to occupy the entire available width or height of the body.
+
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -178,12 +182,15 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: SizedBox(
-            width: 230,
+
+           height: double.infinity,
+           width: double.infinity,
+
 
           child:
-          Column(
+          Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
             ElevatedButton(
               onPressed: () {
@@ -200,6 +207,7 @@ class _MyAppState extends State<MyApp> {
                 });
               },
               child: Text(buttonName),
+
             ),
             ElevatedButton(
               onPressed: () {
