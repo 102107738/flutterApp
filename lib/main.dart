@@ -28,6 +28,35 @@ void main() {
 
 
 
+/*Layout Widgets*/
+//Container: A versatile widget that can be used to contain other widgets and apply various
+// visual properties like padding, margin, alignment, and background color.
+
+//Row: A widget that arranges its children widgets horizontally in a row.
+// It is useful for creating horizontal layouts and distributing space among multiple widgets.
+
+// Column: A widget that arranges its children widgets vertically in a column.
+// It is useful for creating vertical layouts and organizing content vertically.
+
+// Stack: A widget that overlays its children widgets on top of each other.
+//It allows you to position and layer widgets using absolute or relative positioning.
+
+// Expanded: A widget that expands to fill the available space within a parent widget.
+// It is often used within Row or Column widgets to distribute remaining space among its children.
+
+// Flexible: Similar to Expanded, the Flexible widget is used to distribute remaining space among its children,
+// but it provides more flexibility by allowing its children to occupy a fraction of the available space.
+
+// ListView: A scrollable widget that displays a list of children widgets.
+// It can be used to create scrolling lists or grids, both horizontally and vertically.
+
+// GridView: A scrollable widget that displays a grid of children widgets.
+// It allows you to create grid layouts with rows and columns of equal or varying sizes.
+
+
+
+
+
 /*aligning and centering*/
 //The Center widget centers its child both horizontally and vertically within its available space. It expands to fill the remaining space if its child doesn't take up the entire available space.
 //The Align widget allows you to specify alignment values to position its child within its available space. You can align the child to the top, bottom, left, right, center, or any combination using the Alignment class.
@@ -66,6 +95,69 @@ void main() {
 // By updating the currentIndex in the onTap callback, you can control the selected item's appearance and behavior and manage the corresponding UI changes in your Flutter app.
 
 
+/*MainAxisAlignment*/
+//MainAxisAlignment is an enumeration that is used to control the
+// alignment of child widgets along the main axis of a container.
+// It is primarily used with layout widgets such as Row and Column to determine how
+// the child widgets are positioned and distributed within the available space.
+
+// MainAxisAlignment.start: Aligns the child widgets at the start of the main axis.
+// For a horizontal axis (in a Row), it aligns the children to the left.
+// For a vertical axis (in a Column), it aligns the children to the top.
+
+// MainAxisAlignment.end: Aligns the child widgets at the end of the main axis.
+// For a horizontal axis (in a Row), it aligns the children to the right.
+// For a vertical axis (in a Column), it aligns the children to the bottom.
+
+// MainAxisAlignment.center: Centers the child widgets along the main axis.
+// It distributes the remaining space evenly before and after the children.
+
+// MainAxisAlignment.spaceBetween: Distributes the child widgets evenly along the main axis, with equal spacing between them.
+// The first and last child widgets are placed at the start and end of the container, respectively.
+
+// MainAxisAlignment.spaceAround: Distributes the child widgets evenly along the main axis,
+// with equal spacing before the first child and after the last child.
+// The remaining children have equal spacing between them.
+
+// MainAxisAlignment.spaceEvenly: Distributes the child widgets evenly along the main axis,
+// with equal spacing between them and half of that spacing
+// before the first and after the last child
+
+
+
+/*crossAxisAlignment*/
+//crossAxisAlignment is another property used to control the alignment of child widgets
+// perpendicular to the main axis in layout widgets like Row and Column.
+// It determines how the child widgets are positioned and distributed along the cross axis.
+
+
+// CrossAxisAlignment.start: Aligns the child widgets at the start of the cross axis.
+// For a horizontal axis (in a Row), it aligns the children to the top.
+// For a vertical axis (in a Column), it aligns the children to the left.
+
+// CrossAxisAlignment.end: Aligns the child widgets at the end of the cross axis.
+// For a horizontal axis (in a Row), it aligns the children to the bottom.
+// For a vertical axis (in a Column), it aligns the children to the right.
+
+// CrossAxisAlignment.center: Centers the child widgets along the cross axis.
+// It distributes the remaining space evenly above and below the children (for Row) or
+// to the left and right of the children (for Column).
+
+// CrossAxisAlignment.stretch: Stretches the child widgets along the cross axis
+// to match the extent of the container in that direction.
+// This is the default value if crossAxisAlignment is not explicitly specified.
+
+// CrossAxisAlignment.baseline: Aligns the child widgets along a baseline.
+// This option requires a common baseline to be specified for all
+// the child widgets using the textBaseline property.
+
+
+/*SizedBox*/
+//SizedBox is a widget that allows you to specify a fixed size for its child or provide empty space with a specific width and height.
+// It is particularly useful for adding padding, creating spacing between widgets,
+// or enforcing a specific size constraint.
+
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -85,23 +177,49 @@ class _MyAppState extends State<MyApp> {
           title: const Text("Basic App"),
         ),
         body: Center(
-          child: ElevatedButton(
-            onPressed: () {
-              setState(() {
-                switch(buttonName){
-                  case "Click":
-                    buttonName = "Press";
-                    break;
-                  case "Press":
-                    buttonName = "Click";
-                    break;
-                }
+          child: SizedBox(
+            width: 230,
 
-              });
-            },
-            child: Text(buttonName),
-          ),
+          child:
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  switch(buttonName){
+                    case "Click":
+                      buttonName = "Press";
+                      break;
+                    case "Press":
+                      buttonName = "Click";
+                      break;
+                  }
+
+                });
+              },
+              child: Text(buttonName),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  switch(buttonName){
+                    case "Click":
+                      buttonName = "Press";
+                      break;
+                    case "Press":
+                      buttonName = "Click";
+                      break;
+                  }
+
+                });
+              },
+              child: Text(buttonName),
+            )
+          ],)
         ),
+    ),
         bottomNavigationBar: BottomNavigationBar(
           items: const [
             BottomNavigationBarItem(
