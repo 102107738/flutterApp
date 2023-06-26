@@ -161,6 +161,11 @@ void main() {
 //double.infinity set as its width or height within the body attribute of a Scaffold,
 // it will expand to occupy the entire available width or height of the body.
 
+/*Style Button*/
+//style: ElevatedButton.styleFrom()
+//onPrimary, color of text
+//primary, color of button
+//
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -193,6 +198,11 @@ class _MyAppState extends State<MyApp> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
             ElevatedButton(
+
+              style: ElevatedButton.styleFrom(
+                onPrimary: Colors.black,
+                primary: Colors.yellow
+              ),
               onPressed: () {
                 setState(() {
                   switch(buttonName){
