@@ -167,6 +167,23 @@ void main() {
 //primary, color of button
 //
 
+
+/*Image*/
+//Image.asset: Loads an image from the Flutter app's assets directory.
+// It requires specifying the asset's relative path as a String.
+
+//Image.network: Loads an image from a network URL.
+// It requires providing the URL as a String
+
+//Image.file: Loads an image from a local file system path.
+// It requires providing the File object representing the image file.
+
+//Image.memory: Loads an image from raw bytes in memory.
+// It requires providing the Uint8List containing the image data.
+
+//Image.memory with base64 encoding: Loads an image from base64 encoded data.
+// It requires providing the base64 encoded string.
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -238,7 +255,7 @@ class _MyAppState extends State<MyApp> {
               child: Text(buttonName),
             )
           ],)
-        ) : const SizedBox(),
+        ) : Image.asset("images/Capture.JPG"),
     ),
         bottomNavigationBar: BottomNavigationBar(
           items: const [
