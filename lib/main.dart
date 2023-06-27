@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 
 
@@ -228,6 +229,10 @@ class _MyAppExtState extends State<MyAppExt> {
   int currentIndex = 0;
   var backGround = Colors.orange;
   bool _isClicked = false;
+  String? selectedOption = "*";
+  late int numberB;
+  late int numberA;
+  late int answer = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -238,47 +243,118 @@ class _MyAppExtState extends State<MyAppExt> {
       body: Center(
         child: currentIndex == 0
             ? Container(
-          height: double.infinity,
-          width: double.infinity,
+
+          padding: EdgeInsets.all(20) ,
           color: backGround,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
+
+          child: ListView(
+
             children: [
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  onPrimary: Colors.black,
-                  primary: Colors.yellow,
-                ),
-                onPressed: () {
+              const Align(
+
+                alignment: Alignment.center,
+                child: Text("Calculator", style: TextStyle(fontSize: 20)),
+              ),
+              TextFormField(
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                keyboardType: TextInputType.number,
+
+                onChanged: (val){
                   setState(() {
-                    switch (buttonName) {
-                      case "Click":
-                        buttonName = "Press";
-                        break;
-                      case "Press":
-                        buttonName = "Click";
-                        break;
-                    }
+                    numberA = int.parse(val);
                   });
                 },
-                child: Text(buttonName),
+                decoration: const InputDecoration(
+                  labelText: "Number A",
+
+
+                ),
+              )
+            , const SizedBox(height: 50)
+              ,
+          Align(
+            alignment: Alignment.center,
+          child: DropdownButton<String>(
+            value: selectedOption,
+            onChanged: (String? value){
+                setState(() {
+                  selectedOption = value;
+                });
+            },
+            items: const <DropdownMenuItem<String>>[
+              DropdownMenuItem<String>(
+                value: "*",
+                child: Text("*"),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                      const NextPage(),
-                    ),
-                  );
-                },
-                child: const Text('Next Page'),
+              DropdownMenuItem<String>(
+                value: "+",
+                child: Text("+"),
+              ),
+              DropdownMenuItem<String>(
+                value: "-",
+                child: Text("-"),
+              ),
+              DropdownMenuItem<String>(
+                value: "/",
+                child: Text("/"),
               ),
             ],
-          ),
-        )
-            : GestureDetector(
+          )
+          )
+              ,
+              TextFormField(
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                keyboardType: TextInputType.number,
+                onChanged: (val){
+                  setState(() {
+                    numberB = int.parse(val);
+                  });
+                },
+                decoration: const InputDecoration(
+                  labelText: "Number B",
+
+
+                ),
+              ), const SizedBox(height: 50,)
+
+              ,
+              ElevatedButton(
+                  onPressed: (){
+                    setState(() {
+                      switch(selectedOption)
+                      {
+                        case "*":
+                          answer = numberA * numberB;
+                          break;
+                        case "-":
+                          answer = numberA - numberB;
+                          break;
+                        case "+":
+                          answer = numberA + numberB;
+                        case "/":
+                          answer = numberA ~/ numberB;
+                          break;
+                      }
+
+
+                    });
+                  }
+                  ,
+                  child: Text("Calculate"))
+              ,
+
+
+
+              ElevatedButton(
+                onPressed: null,
+                child: Text(answer.toString()),
+              )
+
+             ],
+
+          )
+
+        ) : GestureDetector(
           onTap: (){
             setState(() {
               _isClicked = !_isClicked;
@@ -291,18 +367,16 @@ class _MyAppExtState extends State<MyAppExt> {
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
-            label: "Home",
+            label: "Calculator",
             icon: Icon(
-              Icons.favorite,
-              color: Colors.pink,
-              size: 24.0,
-              semanticLabel: 'Text to announce in accessibility modes',
+              Icons.calculate,
+
             ),
           ),
           BottomNavigationBarItem(
-            label: "Settings",
+            label: "Todo",
             icon: Icon(
-              Icons.settings,
+              Icons.list,
             ),
           ),
         ],
