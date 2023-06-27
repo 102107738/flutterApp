@@ -190,6 +190,15 @@ void main() {
 // to a new page following the Material Design guidelines.
 // It provides a way to navigate between different screens or pages in a Flutter app.
 
+
+/*Gesture Detector*/
+//GestureDetector widget in Flutter is used to detect
+// various gestures made by the user on the screen,
+// such as tapping, dragging, swiping, etc.
+// It allows you to add interactivity and respond to
+// user input in your Flutter application.
+
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -218,6 +227,7 @@ class _MyAppExtState extends State<MyAppExt> {
   String buttonName = "Click";
   int currentIndex = 0;
   var backGround = Colors.orange;
+  bool _isClicked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -268,7 +278,15 @@ class _MyAppExtState extends State<MyAppExt> {
             ],
           ),
         )
-            : Image.asset("images/Capture.JPG"),
+            : GestureDetector(
+          onTap: (){
+            setState(() {
+              _isClicked = !_isClicked;
+            });
+          },
+            child: _isClicked? Image.asset("images/Capture.JPG") :
+            Image.asset("images/launcher.png"),
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
@@ -309,7 +327,7 @@ class NextPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Next Page"),
+        title: const Text("Next Page"),
       )
     );
   }
