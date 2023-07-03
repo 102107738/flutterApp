@@ -1,7 +1,11 @@
 
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import '';
 
 
 
@@ -200,6 +204,11 @@ void main() {
 // user input in your Flutter application.
 
 
+/*Future*/
+//In Flutter, the Future class is used to represent a potential value or error
+// that may be available in the future.
+// It is often used for asynchronous operations such as
+// fetching data from a network or reading from a file.
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -225,14 +234,7 @@ class MyAppExt extends StatefulWidget {
 }
 
 class _MyAppExtState extends State<MyAppExt> {
-  String buttonName = "Click";
   int currentIndex = 0;
-  var backGround = Colors.orange;
-  bool _isClicked = false;
-  String? selectedOption = "*";
-  late int numberB;
-  late int numberA;
-  late int answer = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -241,128 +243,7 @@ class _MyAppExtState extends State<MyAppExt> {
         title: const Text("Basic App"),
       ),
       body: Center(
-        child: currentIndex == 0
-            ? Container(
-
-          padding: EdgeInsets.all(20) ,
-          color: backGround,
-
-          child: ListView(
-
-            children: [
-              const Align(
-
-                alignment: Alignment.center,
-                child: Text("Calculator", style: TextStyle(fontSize: 20)),
-              ),
-              TextFormField(
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                keyboardType: TextInputType.number,
-
-                onChanged: (val){
-                  setState(() {
-                    numberA = int.parse(val);
-                  });
-                },
-                decoration: const InputDecoration(
-                  labelText: "Number A",
-
-
-                ),
-              )
-            , const SizedBox(height: 50)
-              ,
-          Align(
-            alignment: Alignment.center,
-          child: DropdownButton<String>(
-            value: selectedOption,
-            onChanged: (String? value){
-                setState(() {
-                  selectedOption = value;
-                });
-            },
-            items: const <DropdownMenuItem<String>>[
-              DropdownMenuItem<String>(
-                value: "*",
-                child: Text("*"),
-              ),
-              DropdownMenuItem<String>(
-                value: "+",
-                child: Text("+"),
-              ),
-              DropdownMenuItem<String>(
-                value: "-",
-                child: Text("-"),
-              ),
-              DropdownMenuItem<String>(
-                value: "/",
-                child: Text("/"),
-              ),
-            ],
-          )
-          )
-              ,
-              TextFormField(
-                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                keyboardType: TextInputType.number,
-                onChanged: (val){
-                  setState(() {
-                    numberB = int.parse(val);
-                  });
-                },
-                decoration: const InputDecoration(
-                  labelText: "Number B",
-
-
-                ),
-              ), const SizedBox(height: 50,)
-
-              ,
-              ElevatedButton(
-                  onPressed: (){
-                    setState(() {
-                      switch(selectedOption)
-                      {
-                        case "*":
-                          answer = numberA * numberB;
-                          break;
-                        case "-":
-                          answer = numberA - numberB;
-                          break;
-                        case "+":
-                          answer = numberA + numberB;
-                        case "/":
-                          answer = numberA ~/ numberB;
-                          break;
-                      }
-
-
-                    });
-                  }
-                  ,
-                  child: Text("Calculate"))
-              ,
-
-
-
-              ElevatedButton(
-                onPressed: null,
-                child: Text(answer.toString()),
-              )
-
-             ],
-
-          )
-
-        ) : GestureDetector(
-          onTap: (){
-            setState(() {
-              _isClicked = !_isClicked;
-            });
-          },
-            child: _isClicked? Image.asset("images/Capture.JPG") :
-            Image.asset("images/launcher.png"),
-        ),
+        child: currentIndex == 0 ? CalculatorContainer() : TodoContainer(),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const [
@@ -370,7 +251,6 @@ class _MyAppExtState extends State<MyAppExt> {
             label: "Calculator",
             icon: Icon(
               Icons.calculate,
-
             ),
           ),
           BottomNavigationBarItem(
@@ -391,9 +271,239 @@ class _MyAppExtState extends State<MyAppExt> {
   }
 }
 
+class CalculatorContainer extends StatefulWidget {
+  @override
+  _CalculatorContainerState createState() => _CalculatorContainerState();
+}
 
+class _CalculatorContainerState extends State<CalculatorContainer> {
+  var backGround = Colors.orange;
+  String? selectedOption = "*";
+  late int numberA;
+  late int numberB;
+  late int answer = 0;
 
+  @override
+  Widget build(BuildContext context) {
 
+    return Container(
+      padding: const EdgeInsets.all(20),
+      color: backGround,
+      child: ListView(
+        children: [
+          const Align(
+            alignment: Alignment.center,
+            child: Text("Calculator", style: TextStyle(fontSize: 20)),
+          ),
+          TextFormField(
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            keyboardType: TextInputType.number,
+            onChanged: (val) {
+              setState(() {
+                numberA = int.parse(val);
+              });
+            },
+            decoration: const InputDecoration(
+              labelText: "Number A",
+            ),
+          ),
+          const SizedBox(height: 50),
+          Align(
+            alignment: Alignment.center,
+            child: DropdownButton<String>(
+              value: selectedOption,
+              onChanged: (String? value) {
+                setState(() {
+                  selectedOption = value;
+                });
+              },
+              items: const <DropdownMenuItem<String>>[
+                DropdownMenuItem<String>(
+                  value: "*",
+                  child: Text("*"),
+                ),
+                DropdownMenuItem<String>(
+                  value: "+",
+                  child: Text("+"),
+                ),
+                DropdownMenuItem<String>(
+                  value: "-",
+                  child: Text("-"),
+                ),
+                DropdownMenuItem<String>(
+                  value: "/",
+                  child: Text("/"),
+                ),
+              ],
+            ),
+          ),
+          TextFormField(
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+            keyboardType: TextInputType.number,
+            onChanged: (val) {
+              setState(() {
+                numberB = int.parse(val);
+              });
+            },
+            decoration: const InputDecoration(
+              labelText: "Number B",
+            ),
+          ),
+          const SizedBox(height: 50),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                switch (selectedOption) {
+                  case "*":
+                    answer = numberA * numberB;
+                    break;
+                  case "-":
+                    answer = numberA - numberB;
+                    break;
+                  case "+":
+                    answer = numberA + numberB;
+                    break;
+                  case "/":
+                    answer = numberA ~/ numberB;
+                    break;
+                }
+              });
+            },
+            child: const Text("Calculate"),
+          ),
+          ElevatedButton(
+            onPressed: null,
+            child: Text(answer.toString()),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TodoContainer extends StatefulWidget {
+  @override
+  _TodoContainerState createState() => _TodoContainerState();
+}
+
+class _TodoContainerState extends State<TodoContainer> {
+  List<Task> tasks = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchTasks();
+  }
+
+  Future<void> _fetchTasks() async {
+    try {
+      var url = 'https://jsonplaceholder.typicode.com/todos';
+      var response = await http.get(Uri.parse(url));
+      print('Response status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
+
+      if (response.statusCode == 200) {
+        var tasksJson = json.decode(response.body) as List<dynamic>;
+        setState(() {
+          tasks = tasksJson.map((taskJson) => Task.fromJson(taskJson)).toList();
+        });
+      } else {
+        throw Exception('Failed to fetch todos');
+      }
+    } catch (error) {
+      print('Error fetching tasks: $error');
+      setState(() {
+        tasks = [];
+      });
+    }
+  }
+
+  void markTaskAsCompleted(int index) {
+    setState(() {
+      tasks = List.from(tasks);
+      tasks[index] = tasks[index].markAsCompleted();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return  Container(
+        child: ListView.builder(
+          itemBuilder: (context, index) {
+            return Card(
+              color: tasks[index].completed ? Colors.green : Colors.blue,
+              child: ListTile(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return MyPopup(
+                        onYesPressed: () {
+                          markTaskAsCompleted(index);
+                          Navigator.of(context).pop();
+                        },
+                      );
+                    },
+                  );
+                },
+                title: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    tasks[index].title ?? 'No Title',
+                    style: TextStyle(fontSize: 30),
+                  ),
+                ),
+              ),
+            );
+          },
+          itemCount: tasks.length,
+        ),
+      );
+  }
+}
+
+class Task {
+  String? title;
+  bool completed;
+
+  Task(this.title, {this.completed = false});
+
+  Task.fromJson(Map<String, dynamic> json)
+      : title = json['title'],
+        completed = json['completed'] ?? false;
+
+  Task markAsCompleted() {
+    return Task(title, completed: true);
+  }
+}
+
+class MyPopup extends StatelessWidget {
+  final VoidCallback onYesPressed;
+
+  const MyPopup({required this.onYesPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      content: const Text(
+        'Mark as done?',
+        style: TextStyle(fontSize: 30),
+      ),
+      actions: [
+        TextButton(
+          child: const Text('Yes'),
+          onPressed: onYesPressed,
+        ),
+        TextButton(
+          child: const Text('No'),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ],
+    );
+  }
+}
 class NextPage extends StatelessWidget {
   const NextPage({Key? key}) : super(key: key);
 
